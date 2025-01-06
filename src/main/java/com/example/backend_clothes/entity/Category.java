@@ -1,4 +1,4 @@
-package com.example.backend_clothes.entiry;
+package com.example.backend_clothes.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

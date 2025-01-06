@@ -1,4 +1,4 @@
-package com.example.backend_clothes.entiry;
+package com.example.backend_clothes.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,12 +30,11 @@ public class Products {
 
     String image;
 
-    String color;
-
-    String size;
-
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    Category category;
 
+    @OneToMany(mappedBy = "product")
+    List<ProductColorSize> productColorSizes = new ArrayList<>();
 }
+
