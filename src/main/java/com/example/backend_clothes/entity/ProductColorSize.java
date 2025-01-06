@@ -30,5 +30,17 @@ public class ProductColorSize {
     Size size;
 
     @Column(nullable = false)
-    int quantity; // Số lượng sản phẩm cho mỗi combination (product, color, size)
+    int quantity; // Quantity for each combination (product, color, size)
+
+    public String getColorName() {
+        return color != null ? color.getName() : null; // Access color's name field
+    }
+
+    public String getSizeName() {
+        return size != null ? size.getName() : null; // Access size's name field
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
 }

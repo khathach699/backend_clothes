@@ -5,9 +5,10 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import java.util.List;
 
-@Entity
-@Getter
 @Setter
+@Getter
+@Entity
+
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -17,7 +18,10 @@ public class Category {
     Long id;
 
     String name;
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<Products> products;
+    String image;
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    private List<Products> products;
+
+
 
 }

@@ -1,17 +1,17 @@
 package com.example.backend_clothes.entity;
 
+import com.example.backend_clothes.dto.response.ProductColorSizeResponse;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -24,7 +24,8 @@ public class Products {
     String name;
 
     @Column(nullable = false)
-    double price;
+    Double price;
+
 
     String description;
 
@@ -34,7 +35,13 @@ public class Products {
     @JoinColumn(name = "category_id", nullable = false)
     Category category;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     List<ProductColorSize> productColorSizes = new ArrayList<>();
+
+    public List<ProductColorSize> getColorSizes() {
+        return productColorSizes;
+    }
+
+
 }
 
