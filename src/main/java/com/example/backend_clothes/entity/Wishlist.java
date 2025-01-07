@@ -1,11 +1,11 @@
 package com.example.backend_clothes.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import java.util.List;
+import java.time.LocalDateTime;
+
 
 @Entity
 @Getter
@@ -13,16 +13,19 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Category {
+public class Wishlist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    String name;
-    String image;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
-    @JsonBackReference  // Đảm bảo sử dụng @JsonBackReference ở đây để tránh vòng lặp
-    private List<Products> products;
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    @JsonBackReference  // Use @JsonBackReference to avoid circular serialization
+    private Products product;
+
+    private LocalDateTime addedAt;
 }
-

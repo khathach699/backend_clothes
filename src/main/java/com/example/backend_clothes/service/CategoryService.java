@@ -43,6 +43,7 @@ public class CategoryService {
         List<ProductResponse> productResponses = category.getProducts().stream()
                 .map(product -> {
                     log.info("Mapping Product: {}", product); // Debugging log
+                    log.info("Product Color Sizes: {}", product.getColorSizes()); // Debugging log for product color sizes
 
                     return new ProductResponse(
                             product.getId(),
@@ -54,7 +55,6 @@ public class CategoryService {
                             product.getColorSizes().stream()
                                     .map(colorSize -> {
                                         log.info("Mapping ColorSize: {}", colorSize); // Debugging log
-
                                         return new ProductColorSizeResponse(
                                                 colorSize.getColorName(),
                                                 colorSize.getSizeName(),
@@ -73,5 +73,6 @@ public class CategoryService {
                 productResponses
         );
     }
+
 
 }

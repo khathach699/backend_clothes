@@ -1,5 +1,6 @@
 package com.example.backend_clothes.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ public class ProductColorSize {
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
+    @JsonBackReference  // Use @JsonBackReference here to break the circular reference
     Products product;
 
     @ManyToOne
@@ -30,14 +32,14 @@ public class ProductColorSize {
     Size size;
 
     @Column(nullable = false)
-    int quantity; // Quantity for each combination (product, color, size)
+    int quantity;
 
     public String getColorName() {
-        return color != null ? color.getName() : null; // Access color's name field
+        return color != null ? color.getName() : null;
     }
 
     public String getSizeName() {
-        return size != null ? size.getName() : null; // Access size's name field
+        return size != null ? size.getName() : null;
     }
 
     public Integer getQuantity() {
