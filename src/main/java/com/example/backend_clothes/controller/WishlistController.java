@@ -24,6 +24,13 @@ public class WishlistController {
         return ResponseEntity.ok(wishlist);
     }
 
+    @GetMapping("/{userId}/exists/{productId}")
+    public ResponseEntity<Boolean> isProductInWishlist(@PathVariable Long userId, @PathVariable Long productId) {
+        boolean exists = wishlistService.isProductInWishlist(userId, productId);
+        return ResponseEntity.ok(exists); // Trả về true nếu sản phẩm có trong wishlist, ngược lại false
+    }
+
+
 
     // Add a product to the wishlist
     @PostMapping("/{userId}/add/{productId}")

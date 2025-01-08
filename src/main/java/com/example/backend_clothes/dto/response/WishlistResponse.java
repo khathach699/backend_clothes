@@ -4,23 +4,10 @@ import com.example.backend_clothes.entity.Wishlist;
 
 public class WishlistResponse {
     private Long id;
-    private String productName;
-    private Double productPrice;
-    private String productImage;
-    private String productDescription;
-    private String categoryName; // Example of additional data you might want
+    private String name;
+    private Double price;
+    private String image;
 
-    // Constructor to initialize WishlistResponse from Wishlist entity
-    public WishlistResponse(Wishlist wishlist) {
-        this.id = wishlist.getId();
-        this.productName = wishlist.getProduct().getName();
-        this.productPrice = wishlist.getProduct().getPrice();
-        this.productImage = wishlist.getProduct().getImage();
-        this.productDescription = wishlist.getProduct().getDescription();
-        this.categoryName = wishlist.getProduct().getCategory().getName(); // Assuming you want category details
-    }
-
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -29,41 +16,57 @@ public class WishlistResponse {
         this.id = id;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Double getProductPrice() {
-        return productPrice;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setProductPrice(Double productPrice) {
-        this.productPrice = productPrice;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public String getProductImage() {
-        return productImage;
+    public String getImage() {
+        return image;
     }
 
-    public void setProductImage(String productImage) {
-        this.productImage = productImage;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getProductDescription() {
-        return productDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCategoryName() {
         return categoryName;
     }
+
+    private String description;
+    private String categoryName; // Example of additional data you might want
+
+    // Constructor to initialize WishlistResponse from Wishlist entity
+    public WishlistResponse(Wishlist wishlist) {
+        this.id = wishlist.getId();
+        this.name = wishlist.getProduct().getName();
+        this.price = wishlist.getProduct().getPrice();
+        this.image = wishlist.getProduct().getImage();
+        this.description = wishlist.getProduct().getDescription();
+        this.categoryName = wishlist.getProduct().getCategory().getName(); // Assuming you want category details
+    }
+
+    // Getters and Setters
+
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;

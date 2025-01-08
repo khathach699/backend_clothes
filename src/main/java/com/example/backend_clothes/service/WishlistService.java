@@ -58,5 +58,9 @@ public class WishlistService {
         }
         return wishlistResponses;
     }
+
+    public boolean isProductInWishlist(Long userId, Long productId) {
+        return wishlistRepository.existsByUserIdAndProductId(userId, productId);
+    }
 }
 

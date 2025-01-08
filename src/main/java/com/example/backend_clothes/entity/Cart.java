@@ -25,7 +25,11 @@ public class Cart {
     @JoinColumn(name = "product_id", nullable = false)
     private Products product;
 
-    private int quantity; // Số lượng của sản phẩm trong giỏ hàng
+    private int quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "product_color_size_id", nullable = false)
+    private ProductColorSize productColorSize;
 
     private LocalDateTime addedAt;
 }
