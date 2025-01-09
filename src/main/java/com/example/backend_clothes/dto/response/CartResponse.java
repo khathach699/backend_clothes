@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class CartResponse {
     private Long cartId;
+    private Long productId;
     private String productName;
     private String colorName;
     private String sizeName;
@@ -37,6 +38,13 @@ public class CartResponse {
         this.sizeName = sizeName;
     }
 
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
     public Double getPrice() {
         return price;
     }
@@ -45,8 +53,9 @@ public class CartResponse {
         this.price = price;
     }
 
-    public CartResponse(Long cartId, String productName, String colorName, String sizeName, int quantity, Double price, LocalDateTime addedAt, String  productImage) {
+    public CartResponse(Long cartId, Long productId, String productName, String colorName, String sizeName, int quantity, Double price, LocalDateTime addedAt, String productImage) {
         this.cartId = cartId;
+        this.productId = productId; // Gán giá trị productId
         this.productName = productName;
         this.colorName = colorName;
         this.sizeName = sizeName;

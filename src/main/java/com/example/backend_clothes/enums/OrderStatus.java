@@ -1,4 +1,4 @@
-package com.example.backend_clothes.entity;
+package com.example.backend_clothes.enums;
 public enum OrderStatus {
     PENDING,     // Đang chờ xử lý
     COMPLETED,   // Đã hoàn thành

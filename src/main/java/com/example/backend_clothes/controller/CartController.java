@@ -31,14 +31,16 @@ public class CartController {
 
             CartResponse cartResponse = new CartResponse(
                     cart.getId(),
+                    cart.getProduct().getId(), // Lấy productId từ thực thể Product
                     cart.getProduct().getName(),
                     productColorSize.getColorName(),
                     productColorSize.getSizeName(),
                     cart.getQuantity(),
-                    productColorSize.getProduct().getPrice(), // Get price based on color size
+                    productColorSize.getProduct().getPrice(),
                     cart.getAddedAt(),
-                    cart.getProduct().getImage() // Get product image from Products entity
+                    cart.getProduct().getImage()
             );
+
 
             return ResponseEntity.ok(cartResponse);
         } catch (Exception e) {
@@ -66,6 +68,7 @@ public class CartController {
                 ProductColorSize productColorSize = cart.getProductColorSize();
                 CartResponse cartResponse = new CartResponse(
                         cart.getId(),
+                        cart.getProduct().getId(), // Lấy productId từ thực thể Product
                         cart.getProduct().getName(),
                         productColorSize.getColorName(),
                         productColorSize.getSizeName(),
@@ -75,6 +78,7 @@ public class CartController {
                         cart.getProduct().getImage()
                 );
                 cartResponses.add(cartResponse);
+
             }
             return ResponseEntity.ok(cartResponses);
         } catch (Exception e) {
