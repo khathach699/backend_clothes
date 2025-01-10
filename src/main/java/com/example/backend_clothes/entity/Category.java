@@ -1,6 +1,7 @@
 package com.example.backend_clothes.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,8 +22,8 @@ public class Category {
     String name;
     String image;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
-    @JsonBackReference  // Đảm bảo sử dụng @JsonBackReference ở đây để tránh vòng lặp
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY) // FetchType.LAZY để tránh tải dữ liệu quá sớm
+    @JsonManagedReference // Dùng @JsonIgnore để không tuần tự hóa danh sách sản phẩm
     private List<Products> products;
 }
 

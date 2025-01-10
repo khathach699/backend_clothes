@@ -2,12 +2,40 @@ package com.example.backend_clothes.dto.response;
 
 import com.example.backend_clothes.entity.Wishlist;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class WishlistResponse {
     private Long id;
     private String name;
     private Double price;
     private String image;
+    private String description;
+    private String categoryName;
+    private List<ProductColorSizeResponse> colorSizes;  // Add color and size combinations
 
+    // Constructor to initialize WishlistResponse from Wishlist entity
+    public WishlistResponse(Wishlist wishlist) {
+        this.id = wishlist.getId();
+        this.name = wishlist.getProduct().getName();
+        this.price = wishlist.getProduct().getPrice();
+        this.image = wishlist.getProduct().getImage();
+        this.description = wishlist.getProduct().getDescription();
+        this.categoryName = wishlist.getProduct().getCategory().getName();
+
+        // Add logic to fetch color and size combinations
+        this.colorSizes = wishlist.getProduct().getProductColorSizes().stream()
+                .map(productColorSize -> {
+                    ProductColorSizeResponse colorSizeResponse = new ProductColorSizeResponse();
+                    colorSizeResponse.setColorName(productColorSize.getColor().getName());
+                    colorSizeResponse.setSizeName(productColorSize.getSize().getName());
+                    colorSizeResponse.setQuantity(productColorSize.getQuantity());
+                    return colorSizeResponse;
+                })
+                .collect(Collectors.toList());
+    }
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -52,23 +80,15 @@ public class WishlistResponse {
         return categoryName;
     }
 
-    private String description;
-    private String categoryName; // Example of additional data you might want
-
-    // Constructor to initialize WishlistResponse from Wishlist entity
-    public WishlistResponse(Wishlist wishlist) {
-        this.id = wishlist.getId();
-        this.name = wishlist.getProduct().getName();
-        this.price = wishlist.getProduct().getPrice();
-        this.image = wishlist.getProduct().getImage();
-        this.description = wishlist.getProduct().getDescription();
-        this.categoryName = wishlist.getProduct().getCategory().getName(); // Assuming you want category details
-    }
-
-    // Getters and Setters
-
-
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public List<ProductColorSizeResponse> getColorSizes() {
+        return colorSizes;
+    }
+
+    public void setColorSizes(List<ProductColorSizeResponse> colorSizes) {
+        this.colorSizes = colorSizes;
     }
 }

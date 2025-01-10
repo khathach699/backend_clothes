@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
@@ -20,5 +22,11 @@ public class OrderController {
     public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest orderRequest) {
         OrderResponse orderResponse = orderService.createOrder(orderRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(orderResponse);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<OrderResponse>> getOrdersByUserId(@PathVariable Long userId) {
+        List<OrderResponse> orders = orderService.getOrdersByUserId(userId);
+        return ResponseEntity.ok(orders);
     }
 }

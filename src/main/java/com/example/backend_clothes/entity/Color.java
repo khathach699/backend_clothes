@@ -1,5 +1,6 @@
 package com.example.backend_clothes.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -9,7 +10,6 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Entity
 @Data
 @AllArgsConstructor
@@ -21,8 +21,9 @@ public class Color {
     Long id;
 
     @Column(nullable = false, unique = true)
-    String name; // Ví dụ: "Red", "Blue", "Green"
+    String name; // Example: "Red", "Blue", "Green"
 
     @OneToMany(mappedBy = "color")
+    @JsonIgnore // Prevent serialization of the list to avoid circular references
     List<ProductColorSize> productColorSizes = new ArrayList<>();
 }

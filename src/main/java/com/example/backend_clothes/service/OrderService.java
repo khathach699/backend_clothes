@@ -39,7 +39,7 @@ public class OrderService {
         newOrder.setAddress(orderRequest.getAddress());
         newOrder.setPhoneNumber(orderRequest.getPhoneNumber());
         newOrder.setStatus(OrderStatus.PENDING);  // Trạng thái ban đầu là PENDING
-        newOrder.setPaymentStatus("Pending");  // Trạng thái thanh toán ban đầu là Pending
+        newOrder.setPaymentStatus("COMPLETED");  // Trạng thái thanh toán ban đầu là Pending
         newOrder.setCreatedAt(LocalDateTime.now());
         newOrder.setUpdatedAt(LocalDateTime.now());
 
@@ -76,6 +76,7 @@ public class OrderService {
         orderResponse.setPaymentMethodName(savedOrder.getPaymentMethod().getName());
         orderResponse.setPaymentStatus(savedOrder.getPaymentStatus());
         orderResponse.setAddress(savedOrder.getAddress());
+
         orderResponse.setPhoneNumber(savedOrder.getPhoneNumber());
 
         List<OrderItemResponse> orderItemResponses = new ArrayList<>();
@@ -92,5 +93,46 @@ public class OrderService {
 
         return orderResponse;
     }
+
+    public List<OrderResponse> getOrdersByUserId(Long userId) {
+        // Tìm người dùng dựa trên userId
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Lấy danh sách các đơn hàng của người dùng
+        List<Orders> userOrders = orderRepository.findByUser(user);
+
+        // Chuyển đổi danh sách đơn hàng sang danh sách phản hồi
+        List<OrderResponse> orderResponses = new ArrayList<>();
+        for (Orders order : userOrders) {
+            OrderResponse orderResponse = new OrderResponse();
+            orderResponse.setOrderId(order.getId());
+            orderResponse.setUserId(order.getUser().getId());
+            orderResponse.setUserName(order.getUserName());
+            orderResponse.setTotalPrice(order.getTotalPrice());
+            orderResponse.setStatus(order.getStatus().name());
+            orderResponse.setPaymentMethodName(order.getPaymentMethod().getName());
+            orderResponse.setPaymentStatus(order.getPaymentStatus());
+            orderResponse.setAddress(order.getAddress());
+            orderResponse.setCreatedAt(order.getCreatedAt());
+            orderResponse.setPhoneNumber(order.getPhoneNumber());
+
+            List<OrderItemResponse> orderItemResponses = new ArrayList<>();
+            for (OrderItem orderItem : order.getOrderItems()) {
+                OrderItemResponse orderItemResponse = new OrderItemResponse();
+                orderItemResponse.setProductId(orderItem.getProduct().getId());
+                orderItemResponse.setProductName(orderItem.getProduct().getName());
+                orderItemResponse.setQuantity(orderItem.getQuantity());
+                orderItemResponse.setPriceAtOrder(orderItem.getPriceAtOrder());
+                orderItemResponses.add(orderItemResponse);
+            }
+
+            orderResponse.setOrderItems(orderItemResponses);
+            orderResponses.add(orderResponse);
+        }
+
+        return orderResponses;
+    }
+
 
 }

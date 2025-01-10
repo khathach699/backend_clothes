@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -18,7 +20,9 @@ public class OrderResponse {
     private Double totalPrice;  // Tổng giá trị đơn hàng
     private String status;  // Trạng thái đơn hàng (Pending, Completed, etc.)
     private String address;  // Địa chỉ giao hàng
-    private String phoneNumber;  // Số điện thoại
+    private String phoneNumber;
+    private LocalDateTime createdAt;
+    // Số điện thoại
     private String paymentMethodName;  // Tên phương thức thanh toán
     private String paymentStatus;  // Trạng thái thanh toán (Success, Failed, Pending)
     private List<OrderItemResponse> orderItems;  // Danh sách sản phẩm trong đơn hàng

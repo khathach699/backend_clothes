@@ -1,16 +1,10 @@
 package com.example.backend_clothes.entity;
 
-import com.example.backend_clothes.dto.response.ProductColorSizeResponse;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 @Entity
 @Getter
@@ -30,11 +24,11 @@ public class Products {
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
-    @JsonManagedReference  // Use @JsonManagedReference here to allow serialization
+    @JsonManagedReference  // This allows the Category object to be serialized
     private Category category;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
-    @JsonManagedReference  // @JsonManagedReference for this side of the relationship
+    @JsonManagedReference  // This allows the ProductColorSize objects to be serialized
     private List<ProductColorSize> productColorSizes = new ArrayList<>();
 
     public List<ProductColorSize> getColorSizes() {

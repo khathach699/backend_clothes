@@ -9,10 +9,10 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 @Slf4j
 @Service
 public class CategoryService {
@@ -24,7 +24,7 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    // Constructor Injection
+    @Transactional
     public List<CategoryResponse> getAllCategoriesWithProducts() {
         List<Category> categories = categoryRepository.findAll();
         log.info("Fetched Categories: {}", categories); // Debugging log
@@ -43,7 +43,18 @@ public class CategoryService {
         List<ProductResponse> productResponses = category.getProducts().stream()
                 .map(product -> {
                     log.info("Mapping Product: {}", product); // Debugging log
-                    log.info("Product Color Sizes: {}", product.getColorSizes()); // Debugging log for product color sizes
+
+                    // Mapping color sizes like in WishlistResponse
+                    List<ProductColorSizeResponse> colorSizeResponses = product.getProductColorSizes().stream()
+                            .map(colorSize -> {
+                                log.info("Mapping ColorSize: {}", colorSize);  // Debugging log
+                                return new ProductColorSizeResponse(
+                                        colorSize.getColor().getName(),  // Only return color name
+                                        colorSize.getSize().getName(),   // Only return size name
+                                        colorSize.getQuantity()          // Only return quantity
+                                );
+                            })
+                            .collect(Collectors.toList());
 
                     return new ProductResponse(
                             product.getId(),
@@ -51,17 +62,8 @@ public class CategoryService {
                             product.getPrice(),
                             product.getDescription(),
                             product.getImage(),
-                            category.getName(),
-                            product.getColorSizes().stream()
-                                    .map(colorSize -> {
-                                        log.info("Mapping ColorSize: {}", colorSize); // Debugging log
-                                        return new ProductColorSizeResponse(
-                                                colorSize.getColorName(),
-                                                colorSize.getSizeName(),
-                                                colorSize.getQuantity()
-                                        );
-                                    })
-                                    .collect(Collectors.toList())
+                            category.getName(),  // Get category name
+                            colorSizeResponses
                     );
                 })
                 .collect(Collectors.toList());
@@ -73,6 +75,5 @@ public class CategoryService {
                 productResponses
         );
     }
-
 
 }
