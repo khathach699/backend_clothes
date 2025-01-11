@@ -34,4 +34,9 @@ public class Products {
     public List<ProductColorSize> getColorSizes() {
         return productColorSizes;
     }
+
+    public Products(Long id) {
+        this.id = id;
+    }
+
 }

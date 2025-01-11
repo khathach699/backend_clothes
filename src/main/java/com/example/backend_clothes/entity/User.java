@@ -38,4 +38,10 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonBackReference
     private List<Orders> orders;
+    public User(Long id) {
+        this.id = id;
+    }
+
+
+
 }

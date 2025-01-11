@@ -2,8 +2,6 @@ package com.example.backend_clothes.service;
 import com.example.backend_clothes.dto.response.ProductColorSizeResponse;
 import com.example.backend_clothes.dto.response.ProductResponse;
 import com.example.backend_clothes.entity.Products;
-import com.example.backend_clothes.mapper.ProductMapper;
-import com.example.backend_clothes.repository.ProductColorSizeRepository;
 import com.example.backend_clothes.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
