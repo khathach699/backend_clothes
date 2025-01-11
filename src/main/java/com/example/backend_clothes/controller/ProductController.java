@@ -19,4 +19,26 @@ public class ProductController {
     public List<ProductResponse> getAllProducts() {
         return productService.getAllProducts();
     }
+
+    @GetMapping("/sortedByPrice")
+    public List<ProductResponse> getProductsSortedByPrice() {
+        // Call the service method to get products sorted by price descending
+        return productService.getProductsByPriceDesc();
+    }
+
+    @GetMapping("/sortedByPriceAsc")
+    public List<ProductResponse> getProductsSortedByPriceAsc() {
+        // Call the service method to get products sorted by price ascending
+        return productService.getProductsByPriceAsc();
+    }
+
+    @GetMapping("/most-purchased")
+    public List<ProductResponse> getMostPurchasedProducts() {
+        return productService.getMostPurchasedProducts();
+    }
+//
+//    @GetMapping("/highest-rated")
+//    public ProductResponse getHighestRatedProduct() {
+//        return productService.getHighestRatedProduct();
+//    }
 }
