@@ -24,31 +24,6 @@ public class UserController {
 
     UserService userService;
 
-//    @PostMapping("/login")
-//    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
-//        // Ví dụ giả định kiểm tra username và password
-//        if ("khathach@gmail.com".equals(loginRequest.getUsernameOrEmail()) &&
-//                "03921474740".equals(loginRequest.getPassword())) {
-//
-//            Map<String, String> response = new HashMap<>();
-//            response.put("token", "fake-jwt-token-123456");
-//            return ResponseEntity.ok(response);
-//        }
-//
-//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-//    }
-
-//    @PostMapping("/login")
-//    public ResponseEntity<UserResponse> login(@RequestBody UserCreateRequest loginRequest) {
-//        try {
-//            UserResponse loginResponse = authService.login(loginRequest.getEmail(), loginRequest.getPassword());
-//            return ResponseEntity.ok(loginResponse);
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new UserResponse(null, null, null, e.getMessage()));
-//        }
-//    }
-
-
     @PostMapping
     ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreateRequest request) {
         return ApiResponse.<UserResponse>builder()
