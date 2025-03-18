@@ -1,4 +1,4 @@
-package com.example.backend_clothes.repository.mapper;
+package com.example.backend_clothes.mapper;
 
 import com.example.backend_clothes.dto.response.ProductColorSizeResponse;
 import com.example.backend_clothes.dto.response.ProductResponse;
