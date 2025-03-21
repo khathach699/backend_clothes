@@ -4,7 +4,6 @@ import com.example.backend_clothes.dto.request.UserCreateRequest;
 import com.example.backend_clothes.dto.request.UserUpdateRequest;
 import com.example.backend_clothes.dto.response.UserResponse;
 import com.example.backend_clothes.entity.User;
-import com.example.backend_clothes.repository.UserRepository;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

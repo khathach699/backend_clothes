@@ -1,6 +1,7 @@
 package com.example.backend_clothes.service;
 
 import com.example.backend_clothes.dto.request.AuthenticationRequest;
+import com.example.backend_clothes.dto.response.AuthenticationResponse;
 import com.example.backend_clothes.enums.ErrorCode;
 import com.example.backend_clothes.exception.AppException;
 import com.example.backend_clothes.repository.UserRepository;
@@ -17,11 +18,16 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
     UserRepository userRepository;
 
-    public boolean authenticate(AuthenticationRequest request){
+    public AuthenticationResponse authenticate(AuthenticationRequest request){
         var user = userRepository.findByEmail(request.email())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-        return passwordEncoder.matches(request.password(), user.getPassword());
+        if (!passwordEncoder.matches(request.password(), user.getPassword())) {
+            return new AuthenticationResponse(false, null); // Đăng nhập thất bại
+        }
+        return new AuthenticationResponse(true, user.getId());
     }
 }
+
+

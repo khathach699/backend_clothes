@@ -24,24 +24,6 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public UserResponse login(String usernameOrEmail, String password) {
-        // Tìm người dùng trong cơ sở dữ liệu
-        Optional<User> userOptional = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
-
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-
-            // Kiểm tra mật khẩu
-            if (user.getPassword().equals(password)) {
-                return new UserResponse(user.getId(), user.getUsername(), user.getEmail());
-            } else {
-                throw new IllegalArgumentException("Invalid password");
-            }
-        } else {
-            throw new IllegalArgumentException("User not found");
-        }
-    }
-
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }

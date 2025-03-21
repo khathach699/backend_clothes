@@ -2,7 +2,6 @@ package com.example.backend_clothes.controller;
 
 import com.example.backend_clothes.dto.request.RatingRequest;
 import com.example.backend_clothes.dto.response.RatingResponse;
-import com.example.backend_clothes.entity.Rating;
 import com.example.backend_clothes.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
