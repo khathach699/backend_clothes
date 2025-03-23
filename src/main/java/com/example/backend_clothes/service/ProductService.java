@@ -180,17 +180,17 @@ public class ProductService {
 //        }
 //    }
 
-    private ProductResponse mapToProductResponse(Products product) {
-        ProductResponse productResponse = new ProductResponse();
-        productResponse.setId(product.getId());
-        productResponse.setName(product.getName());
-        productResponse.setPrice(product.getPrice());
-        productResponse.setDescription(product.getDescription());
-        productResponse.setImage(product.getImage());
-        productResponse.setCategoryName(product.getCategory().getName());
-        // Add any other necessary mappings
-        return productResponse;
-    }
+//    private ProductResponse mapToProductResponse(Products product) {
+//        ProductResponse productResponse = new ProductResponse();
+//        productResponse.setId(product.getId());
+//        productResponse.setName(product.getName());
+//        productResponse.setPrice(product.getPrice());
+//        productResponse.setDescription(product.getDescription());
+//        productResponse.setImage(product.getImage());
+//        productResponse.setCategoryName(product.getCategory().getName());
+//        // Add any other necessary mappings
+//        return productResponse;
+//    }
 
 }
 

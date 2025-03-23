@@ -10,6 +10,10 @@ public enum ErrorCode {
     USER_NOT_FOUND(1004, "User not found"),
     PRODUCT_NOT_FOUND(1005, "Product not found"),
     UNAUTHENTICATED(1006, "Unauthenticated"),
+    RATING(1007, "Rating must be at least 5"),
+    NOT_PURCHASED(1008, "Not purchased"),
+    RATING_NOT_FOUND(1009, "Rating not found"),
+    UNAUTHORIZED(1010, "Authentication "),
     ;
 
     ErrorCode(int code, String message) {

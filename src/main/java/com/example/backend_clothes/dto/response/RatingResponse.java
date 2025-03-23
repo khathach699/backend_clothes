@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 
 @Data
 public class RatingResponse {
-    private Long id;            // ID của đánh giá
-    private Long userId;        // ID người dùng
-    private Long productId;     // ID sản phẩm
-    private int score;          // Điểm đánh giá
+    private Long id;
+    private Long userId;
+    private Long productId;
+    private int score;
     private LocalDateTime createdAt; // Thời gian tạo
 }
