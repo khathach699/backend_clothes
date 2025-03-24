@@ -21,9 +21,6 @@ public class WishlistResponse {
     String categoryName;
     List<ProductColorSizeResponse> colorSizes;  // Add color and size combinations
 
-
-
-
 //    // Constructor to initialize WishlistResponse from Wishlist entity
     public WishlistResponse(Wishlist wishlist) {
         this.id = wishlist.getId();

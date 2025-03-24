@@ -1,11 +1,12 @@
 package com.example.backend_clothes.controller;
 
 
-
+import com.example.backend_clothes.dto.response.ApiResponse;
 import com.example.backend_clothes.dto.response.CategoryResponse;
 import com.example.backend_clothes.service.CategoryService;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,20 +17,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/categories")
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CategoryController {
 
-    private final CategoryService categoryService;
+    CategoryService categoryService;
 
-    // Endpoint lấy tất cả các danh mục cùng sản phẩm
     @GetMapping
-    public ResponseEntity<List<CategoryResponse>> getAllCategoriesWithProducts() {
-        List<CategoryResponse> categoryResponses = categoryService.getAllCategoriesWithProducts();
-        return ResponseEntity.ok(categoryResponses);  // Trả về danh sách CategoryResponse
+    ApiResponse<List<CategoryResponse>> getAllCategoriesWithProducts() {
+        return ApiResponse.<List<CategoryResponse>>builder()
+                .result(categoryService.getAllCategoriesWithProducts())
+                .build();
     }
 
     @GetMapping("search/{id}")
-    public ResponseEntity<CategoryResponse> getCategoryWithProductsById(@PathVariable Long id) {
-        CategoryResponse categoryResponse = categoryService.findCategoryWithProductsById(id);
-        return ResponseEntity.ok(categoryResponse);
+    ApiResponse<CategoryResponse> getCategoryWithProductsById(@PathVariable Long id) {
+        return ApiResponse.<CategoryResponse>builder()
+                .result(categoryService.findCategoryWithProductsById(id))
+                .build();
     }
 }

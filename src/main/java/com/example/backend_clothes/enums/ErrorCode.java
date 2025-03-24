@@ -14,6 +14,8 @@ public enum ErrorCode {
     NOT_PURCHASED(1008, "Not purchased"),
     RATING_NOT_FOUND(1009, "Rating not found"),
     UNAUTHORIZED(1010, "Authentication "),
+    COLOR_END_SIZE_EXCEEDED(1011, "Color end size exceeded"),
+    CAR_NOT_FOUND(1012, "Car not found"),
     ;
 
     ErrorCode(int code, String message) {

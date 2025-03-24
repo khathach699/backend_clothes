@@ -4,55 +4,46 @@ import com.example.backend_clothes.entity.Cart;
 import com.example.backend_clothes.entity.ProductColorSize;
 import com.example.backend_clothes.entity.Products;
 import com.example.backend_clothes.entity.User;
+import com.example.backend_clothes.enums.ErrorCode;
+import com.example.backend_clothes.exception.AppException;
 import com.example.backend_clothes.repository.CartRepository;
 import com.example.backend_clothes.repository.ProductColorSizeRepository;
 import com.example.backend_clothes.repository.ProductRepository;
 import com.example.backend_clothes.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 @Service
+@RequiredArgsConstructor
 public class CartService {
 
-    @Autowired
-    private CartRepository cartRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private ProductColorSizeRepository productColorSizeRepository; // Add repository to fetch ProductColorSize
+    private final CartRepository cartRepository;
+    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
+    private final ProductColorSizeRepository productColorSizeRepository;
 
     public Cart addProductToCart(Long userId, Long productId, Long colorId, Long sizeId, int quantity) {
-        // Kiểm tra xem người dùng và sản phẩm có tồn tại không
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        Products product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("Product not found"));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        Products product = productRepository.findById(productId)
+                .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
 
-        // Kiểm tra xem sản phẩm với màu và kích thước đã có trong giỏ hàng chưa
         ProductColorSize productColorSize = productColorSizeRepository.findByProductIdAndColorIdAndSizeId(productId, colorId, sizeId);
-
         if (productColorSize == null) {
-            throw new RuntimeException("Product color/size combination not found");
+            throw new AppException(ErrorCode.COLOR_END_SIZE_EXCEEDED);
         }
 
-        // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
         Cart cart = cartRepository.findByUserAndProductAndProductColorSize(user, product, productColorSize);
         if (cart != null) {
-            // Nếu sản phẩm đã có, tăng số lượng
             cart.setQuantity(cart.getQuantity() + quantity);
         } else {
-            // Nếu chưa có, tạo mới mục giỏ hàng
             cart = new Cart();
             cart.setUser(user);
             cart.setProduct(product);
-            cart.setProductColorSize(productColorSize); // Set the color/size combination
+            cart.setProductColorSize(productColorSize);
             cart.setQuantity(quantity);
             cart.setAddedAt(LocalDateTime.now());
         }
@@ -61,11 +52,15 @@ public class CartService {
     }
 
     public void removeProductFromCart(Long cartId) {
+        if (!cartRepository.existsById(cartId)) {
+            throw new AppException(ErrorCode.CAR_NOT_FOUND);
+        }
         cartRepository.deleteById(cartId);
     }
 
     public List<Cart> getCartByUserId(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         return cartRepository.findByUser(user);
     }
 }

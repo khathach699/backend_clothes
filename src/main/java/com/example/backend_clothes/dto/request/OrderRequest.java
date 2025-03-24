@@ -20,5 +20,5 @@ public class OrderRequest {
     private String phoneNumber;  // Số điện thoại liên lạc
     private List<OrderItemRequest> orderItems;  // Danh sách sản phẩm
 
-    // Getters and Setters
+
 }

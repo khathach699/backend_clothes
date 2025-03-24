@@ -28,7 +28,7 @@ public class WishlistController {
     }
 
     @GetMapping("/exists")
-    public ApiResponse<Boolean> isProductInWishlist(@RequestBody WishListRequest request) {
+    ApiResponse<Boolean> isProductInWishlist(@RequestBody WishListRequest request) {
         boolean exists = wishlistService.isProductInWishlist(request);
         return ApiResponse.<Boolean>builder()
                 .result(exists)
@@ -44,7 +44,7 @@ public class WishlistController {
     }
 
     @DeleteMapping
-    public ApiResponse<String> removeProductFromWishlist(
+    ApiResponse<String> removeProductFromWishlist(
             @RequestParam Long userId, @RequestParam Long productId) {
         wishlistService.removeProductFromWishlist(userId, productId);
         return ApiResponse.<String>builder()

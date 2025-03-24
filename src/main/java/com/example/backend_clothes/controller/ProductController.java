@@ -1,44 +1,51 @@
 package com.example.backend_clothes.controller;
+
+import com.example.backend_clothes.dto.response.ApiResponse;
 import com.example.backend_clothes.dto.response.ProductResponse;
 import com.example.backend_clothes.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")  // This is the base path for product-related routes
+@RequestMapping("/products")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    ProductService productService;
 
-    @GetMapping("/getAlls")  // Path to retrieve all products
-    public List<ProductResponse> getAllProducts() {
-        return productService.getAllProducts();
+    @GetMapping("/getAlls")
+        // Path to retrieve all products
+    ApiResponse<List<ProductResponse>> getAllProducts() {
+        return ApiResponse.<List<ProductResponse>>builder()
+                .result(productService.getAllProducts())
+                .build();
     }
 
     @GetMapping("/sortedByPrice")
-    public List<ProductResponse> getProductsSortedByPrice() {
-        // Call the service method to get products sorted by price descending
-        return productService.getProductsByPriceDesc();
+    ApiResponse<List<ProductResponse>> getProductsSortedByPrice() {
+        return ApiResponse.<List<ProductResponse>>builder()
+                .result(productService.getProductsByPriceDesc())
+                .build();
     }
 
     @GetMapping("/sortedByPriceAsc")
-    public List<ProductResponse> getProductsSortedByPriceAsc() {
-        // Call the service method to get products sorted by price ascending
-        return productService.getProductsByPriceAsc();
+    ApiResponse<List<ProductResponse>> getProductsSortedByPriceAsc() {
+        return ApiResponse.<List<ProductResponse>>builder()
+                .result(productService.getProductsByPriceAsc())
+                .build();
     }
 
     @GetMapping("/most-purchased")
-    public List<ProductResponse> getMostPurchasedProducts() {
-        return productService.getMostPurchasedProducts();
+    ApiResponse<List<ProductResponse>> getMostPurchasedProducts() {
+        return ApiResponse.<List<ProductResponse>>builder()
+                .result(productService.getMostPurchasedProducts())
+                .build();
     }
-//
-//    @GetMapping("/highest-rated")
-//    public ProductResponse getHighestRatedProduct() {
-//        return productService.getHighestRatedProduct();
-//    }
+
 }

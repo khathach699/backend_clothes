@@ -4,19 +4,21 @@ import com.example.backend_clothes.dto.request.RatingRequest;
 import com.example.backend_clothes.dto.response.ApiResponse;
 import com.example.backend_clothes.dto.response.RatingResponse;
 import com.example.backend_clothes.service.RatingService;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/ratings")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class RatingController {
 
-    @Autowired
-    private RatingService ratingService;
+
+    RatingService ratingService;
 
     // API thêm mới một đánh giá
     @PostMapping
