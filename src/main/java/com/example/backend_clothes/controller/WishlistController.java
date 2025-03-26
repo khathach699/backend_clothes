@@ -23,7 +23,7 @@ public class WishlistController {
     @PostMapping("/listWishlist")
     ApiResponse<List<WishlistResponse>> getWishlist(@RequestBody WishListRequest request) {
         return ApiResponse.<List<WishlistResponse>>builder()
-                .result(wishlistService.getWishlist(request.getId()))
+                .result(wishlistService.getWishlist(request.getUserId()))
                 .build();
     }
 

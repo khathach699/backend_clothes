@@ -7,6 +7,6 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class WishListRequest {
-    Long id;
+    Long userId;
     Long productId;
 }

@@ -4,6 +4,7 @@ import com.example.backend_clothes.dto.request.UserCreateRequest;
 import com.example.backend_clothes.dto.request.UserUpdateRequest;
 import com.example.backend_clothes.dto.response.ApiResponse;
 import com.example.backend_clothes.dto.response.UserResponse;
+import com.example.backend_clothes.dto.response.UserUpdateResponse;
 import com.example.backend_clothes.entity.User;
 import com.example.backend_clothes.service.UserService;
 import jakarta.validation.Valid;
@@ -32,8 +33,8 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    ApiResponse<UserResponse> updateUser(@PathVariable String userId, @RequestBody UserUpdateRequest request) {
-        return ApiResponse.<UserResponse>builder()
+    ApiResponse<UserUpdateResponse> updateUser(@PathVariable String userId, @RequestBody UserUpdateRequest request) {
+        return ApiResponse.<UserUpdateResponse>builder()
                 .result(userService.updateUser(userId, request))
                 .build();
     }

@@ -16,7 +16,7 @@ public interface CartMapper {
     @Mapping(source = "productColorSize.colorName", target = "colorName")
     @Mapping(source = "productColorSize.sizeName", target = "sizeName")
     @Mapping(source = "productColorSize.product.price", target = "price")
-//    @Mapping(source = "product.image", target = "product.image")
+    @Mapping(source = "product.image", target = "productImage")
     CartResponse toCartResponse(Cart cart);
     List<CartResponse> toCartResponseList(List<Cart> carts);
 }

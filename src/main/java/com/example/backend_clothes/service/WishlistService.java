@@ -30,9 +30,10 @@ public class WishlistService {
      UserRepository userRepository;
 
     public WishlistResponse addProductToWishlist(WishListRequest request) {
-        User user = userRepository.findById(request.getId()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
         Products product = productRepository.findById(request.getProductId()).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
-        Wishlist existingWishlistItem = wishlistRepository.findByUserIdAndProductId(request.getId(), request.getProductId()).orElse(null);
+        Wishlist existingWishlistItem = wishlistRepository.findByUserIdAndProductId(request.getUserId(), request.getProductId()).orElse(null);
         if (existingWishlistItem != null) {
             throw new RuntimeException("Wishlist item already exists");
         }
@@ -61,7 +62,7 @@ public class WishlistService {
     }
 
     public boolean isProductInWishlist(WishListRequest request) {
-        return wishlistRepository.existsByUserIdAndProductId(request.getId(), request.getProductId());
+        return wishlistRepository.existsByUserIdAndProductId(request.getUserId(), request.getProductId());
     }
 }
 

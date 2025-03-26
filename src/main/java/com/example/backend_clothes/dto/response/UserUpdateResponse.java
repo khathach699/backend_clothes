@@ -1,19 +1,19 @@
 package com.example.backend_clothes.dto.response;
-
-import jakarta.persistence.Id;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserResponse {
-    Long userId;
+public class UserUpdateResponse {
+    String userId;
     String username;
     String email;
-
+    String password;
+    String phone;
+    String gender;
+    LocalDate dateOfBirth;
 }

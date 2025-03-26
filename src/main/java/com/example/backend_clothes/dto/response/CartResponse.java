@@ -22,8 +22,4 @@ public class CartResponse {
      LocalDateTime addedAt;
      String productImage;
 
-
-
-
-
 }
