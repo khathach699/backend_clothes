@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -28,6 +29,8 @@ public class User {
     String password;
     String phone;
     String gender;
+//     Set<String> roles = new HashSet<>();
+
 
     LocalDate dateOfBirth;
 
@@ -41,6 +44,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonBackReference
     List<Orders> orders;
+
+
 
 //    public User(Long id) {
 //        this.id = id;

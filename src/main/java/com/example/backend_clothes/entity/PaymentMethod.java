@@ -16,7 +16,7 @@ public class PaymentMethod {
     Long id;
 
     @Column(nullable = false, unique = true)
-    String name; // Tên phương thức thanh toán (e.g., "COD", "Online Payment")
+    String name;
 
     String description; // Mô tả phương thức thanh toán
 }

@@ -1,6 +1,5 @@
 package com.example.backend_clothes.dto.response;
 
-import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,5 +14,4 @@ public class UserResponse {
     Long userId;
     String username;
     String email;
-
 }
