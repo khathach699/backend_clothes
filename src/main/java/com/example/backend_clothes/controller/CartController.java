@@ -49,9 +49,7 @@ public class CartController {
 
     @GetMapping("/list/{userId}")
     ApiResponse<List<CartResponse>> getCart(@PathVariable Long userId) {
-
-        List<Cart> carts = cartService.getCartByUserId(userId);
-        List<CartResponse> responses = cartMapper.toCartResponseList(carts);
+        List<CartResponse> responses = cartService.getCartByUserId(userId); // Nhận trực tiếp List<CartResponse>
         return ApiResponse.<List<CartResponse>>builder()
                 .result(responses)
                 .build();
