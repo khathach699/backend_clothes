@@ -12,5 +12,6 @@ import lombok.Setter;
 public class OrderItemRequest {
     private Long productId;  // ID của sản phẩm
     private int quantity;
-
+    private Long colorId; // Add colorId field
+    private Long sizeId;
 }

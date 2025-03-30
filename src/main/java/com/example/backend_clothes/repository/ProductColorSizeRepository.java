@@ -14,4 +14,6 @@ public interface ProductColorSizeRepository extends JpaRepository<ProductColorSi
     ProductColorSize findByProductIdAndColorIdAndSizeId(@Param("productId") Long productId,
                                                         @Param("colorId") Long colorId,
                                                         @Param("sizeId") Long sizeId);
+
+
 }

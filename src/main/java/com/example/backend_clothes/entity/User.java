@@ -5,11 +5,12 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -19,23 +20,35 @@ public class User {
     Long id;
 
     @Column(nullable = false, unique = true)
-    private String username;
+    String username;
 
     @Column(nullable = false, unique = true)
-    private String email;
+    String email;
 
     @Column(nullable = false)
-    private String password;
+    String password;
+    String phone;
+    String gender;
+//     Set<String> roles = new HashSet<>();
+
+
+    LocalDate dateOfBirth;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonBackReference
-    private List<Wishlist> wishlists;
+    List<Wishlist> wishlists;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonBackReference
-    private List<Cart> carts;
-
+    List<Cart> carts;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonBackReference
-    private List<Orders> orders;
+    List<Orders> orders;
+
+
+
+//    public User(Long id) {
+//        this.id = id;
+//    }
+
 }

@@ -22,6 +22,12 @@ public class OrderItem {
     @JoinColumn(name = "product_id", nullable = false)
     private Products product;
 
+    @ManyToOne
+    @JoinColumn(name = "product_color_size_id", nullable = false)
+    private ProductColorSize productColorSize;
+
+
+
     private int quantity; // Số lượng sản phẩm trong đơn hàng
 
     private Double priceAtOrder; // Giá sản phẩm tại thời điểm đặt hàng

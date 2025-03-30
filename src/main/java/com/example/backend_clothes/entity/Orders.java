@@ -41,8 +41,8 @@ public class Orders {
     @Column(nullable = false)
     private String phoneNumber; // Số điện thoại liên lạc
 
-    @ManyToOne
-    @JoinColumn(name = "payment_method_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "payment_method_id", nullable = false,referencedColumnName = "id")
     private PaymentMethod paymentMethod; // Phương thức thanh toán
 
     private String paymentStatus; // Trạng thái thanh toán (Success, Failed, Pending)

@@ -15,4 +15,12 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
 
     @Query("SELECT p FROM Products p JOIN FETCH p.productColorSizes")
     List<Products> findAllWithColorSizes();
+
+    @Query("SELECT p FROM Products p ORDER BY p.price DESC")
+    List<Products> findAllByPriceDescending();
+
+    @Query("SELECT p FROM Products p ORDER BY p.price ASC")
+    List<Products> findAllByPriceAscending();
+//
+//    Optional<Products> findTopByOrderByRatingDesc();
 }

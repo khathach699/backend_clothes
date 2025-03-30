@@ -12,8 +12,9 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CommentRequest {
-    Long productId;
+    Long id;
     Long userId;
-    Long parentCommentId;
     String content;
+    Long productId;
+    Long parentCommentId;
 }

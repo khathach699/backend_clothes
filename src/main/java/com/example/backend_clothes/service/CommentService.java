@@ -10,6 +10,7 @@ import com.example.backend_clothes.repository.ProductRepository;
 import com.example.backend_clothes.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -64,16 +65,16 @@ public class CommentService {
     }
 
     // Cập nhật nội dung bình luận
-    public CommentResponse updateComment(Long id, Long userId, String content) {
-        Comment comment = commentRepository.findById(id)
+    public CommentResponse updateComment(CommentRequest request) {
+        Comment comment = commentRepository.findById(request.getId())
                 .orElseThrow(() -> new RuntimeException("Comment not found."));
 
         // Kiểm tra xem người dùng hiện tại có phải là chủ sở hữu của bình luận
-        if (!comment.getUser().getId().equals(userId)) {
+        if (!comment.getUser().getId().equals(request.getUserId())) {
             throw new RuntimeException("You are not authorized to update this comment.");
         }
 
-        comment.setContent(content);
+        comment.setContent(request.getContent());
         comment.setTimestamp(LocalDateTime.now()); // Cập nhật thời gian chỉnh sửa
         return mapToResponse(commentRepository.save(comment), 2, new HashSet<>()); // Giới hạn độ sâu
     }
